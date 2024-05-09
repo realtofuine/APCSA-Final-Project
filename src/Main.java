@@ -1,14 +1,144 @@
-public class Main {
-    public static void main(String[] args) {
-        Exam test = new Exam("Exam 1", "First Testing Exam");
-        System.out.println(test);
-        Question question1 = new Question("What is the meaning of life?");
-        question1.addChoice("option 1", false);
-        question1.addChoice("option 2", true);
-        question1.addChoice("option 3", false);
-        question1.addChoice("option 4", false);
-        test.addQuestion(question1);
-        test.take();
+import java.util.ArrayList;
+import java.util.Scanner;
 
+public class Main {
+    static ArrayList<Exam> examList = new ArrayList<>();
+    static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+
+        printMenu();
+
+    }
+
+    public static void printMenu() {
+
+        int selection = -1;
+        System.out.println();
+        System.out.println("Welcome to your exam dashboard!");
+        System.out.println("Please enter the number corresponding to the option you want to select:");
+        System.out.println("0 - Exit");
+        System.out.println("1 - View all exams");
+        System.out.println("2 - Create new exam");
+
+        try {
+            selection = scanner.nextInt();
+        } catch (Exception e) {
+            printMenu();
+        }
+
+        scanner.nextLine();
+
+        if (selection == 1) {
+            viewExams();
+        } else if (selection == 2) {
+            createExam();
+        }
+    }
+
+    public static void createExam() {
+        System.out.println();
+        System.out.println("Creating new exam!");
+        System.out.println("Please enter exam name:");
+
+        String name = scanner.nextLine();
+        System.out.println("Please enter exam description:");
+        String description = scanner.nextLine();
+        try {
+            Exam test = new Exam(name, description);
+            examList.add(test);
+            System.out.println("Successfully created exam " + test);
+        } catch (Exception e) {
+            System.out.println("Error: " + e + ". Exam not created!");
+        }
+
+        System.out.println("Would you like to create another exam? (Y/N)");
+        String answer = scanner.nextLine();
+
+        if (answer.toUpperCase().equals("Y")) {
+            createExam();
+        } else {
+            printMenu();
+        }
+
+    }
+
+    public static void viewExams() {
+        System.out.println();
+        System.out.println("Here are your exams:");
+        for (int i = 0; i < examList.size(); i++) {
+            if (examList.get(i).getScore() != -1) {
+                System.out.println(i + " - " + examList.get(i) + "\tScore: " + examList.get(i).getScore() + "/"
+                        + examList.get(i).getNumQuestions());
+            } else {
+                System.out.println(i + " - " + examList.get(i));
+            }
+
+        }
+
+        System.out.println("Would you like to (1) Edit an exam, (2) take an exam or (3) return to dashboard?");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        if (choice == 1) {
+            System.out.println("Enter the number of the exam:");
+            int num = scanner.nextInt();
+            scanner.nextLine();
+            if (num >= 0 && num < examList.size()) {
+                editExam(num);
+            } else {
+                System.out.println("Invalid exam number!");
+                viewExams();
+            }
+        } else if (choice == 2) {
+            System.out.println("Enter the number of the exam:");
+            int num = scanner.nextInt();
+            scanner.nextLine();
+            if (num >= 0 && num < examList.size()) {
+                examList.get(num).take();
+
+            } else {
+                System.out.println("Invalid exam number!");
+                viewExams();
+            }
+        } else {
+            printMenu();
+        }
+    }
+
+    public static void editExam(int num) {
+        System.out.println();
+        System.out.println("Now editing exam " + examList.get(num));
+        System.out.println();
+        System.out.println("(1) Add question, (2) Exit");
+
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        while (choice == 1) {
+            System.out.println("Enter question text.");
+            String text = scanner.nextLine();
+            Question question = new Question(text);
+
+            System.out.println(
+                    "Now enter the answer choices, with each choice on a separate line. If the choice is the correct answer, type \"*\" in front of the choice. When done, type \"DONE\"");
+            String answer = scanner.nextLine();
+            while (!answer.equals("DONE")) {
+                if (answer.indexOf("*") == 0) {
+                    question.addChoice(answer.substring(1), true);
+                } else {
+                    question.addChoice(answer, false);
+                }
+                answer = scanner.nextLine();
+            }
+
+            examList.get(num).addQuestion(question);
+            System.out.println("Question with answer \"" + question.getAnswer() + "\" added");
+
+            System.out.println("(1) Add question, (2) Exit");
+            choice = scanner.nextInt();
+            scanner.nextLine();
+        }
+        viewExams();
     }
 }

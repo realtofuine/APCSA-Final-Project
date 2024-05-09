@@ -5,7 +5,7 @@ public class Exam {
     private ArrayList<Question> questions = new ArrayList<>();
     private String name;
     private String description;
-    private int score;
+    private int score = -1;
 
     public Exam(String name, String description) {
         this.name = name;
@@ -21,25 +21,39 @@ public class Exam {
     }
 
     public void take() {
-        Scanner scanner = new Scanner(System.in);
-        score = 0;
+        Scanner scan = new Scanner(System.in);
 
-        for (Question question : questions) {
-            System.out.println(question);
-            String input = scanner.nextLine();
-            while (input == "") {
-                input = scanner.nextLine();
+        if (questions.size() == 0) {
+            System.out.println("Empty exam!");
+        } else {
+            score = 0;
+            for (Question question : questions) {
+                System.out.println(question);
+                String input = scan.nextLine();
+                while (input == "") {
+                    input = scan.nextLine();
+                }
+                if (question.getAnswer().equals(question.getChoice(input.toUpperCase()))) {
+                    score++;
+                }
             }
-            if (question.getAnswer().equals(question.getChoice(input.toUpperCase()))) {
-                score++;
-            }
+
+            System.out.println("\nTest Complete!\n");
+
+            System.out.println("Your score was: " + score + "/" + questions.size());
         }
+        Main.viewExams();
 
-        System.out.println("\nTest Complete!\n");
+        scan.close();
 
-        System.out.println("Your score was: " + score + "/" + questions.size());
+    }
 
-        scanner.close();
+    public int getScore() {
+        return score;
+    }
+
+    public int getNumQuestions() {
+        return questions.size();
     }
 
 }

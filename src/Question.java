@@ -31,7 +31,7 @@ public class Question {
     }
 
     public String toString() {
-        String output = "";
+        String output = "\n";
 
         output += question + "\n";
 
