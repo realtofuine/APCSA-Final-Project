@@ -92,4 +92,12 @@ public class Question {
     public String getAnswer() {
         return answer;
     }
+
+    public boolean hasAnswer() {
+        if (answer != null) {
+            return true;
+        }
+
+        return false;
+    }
 }

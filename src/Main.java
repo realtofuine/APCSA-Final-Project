@@ -123,11 +123,16 @@ public class Main {
             System.out.println(
                     "Now enter the answer choices, with each choice on a separate line. If the choice is the correct answer, type \"*\" in front of the choice. When done, type \"DONE\"");
             String answer = scanner.nextLine();
-            while (!answer.equals("DONE")) {
-                if (answer.indexOf("*") == 0) {
-                    question.addChoice(answer.substring(1), true);
-                } else {
-                    question.addChoice(answer, false);
+            while (!answer.equals("DONE") || !question.hasAnswer()) {
+                if (!question.hasAnswer() && answer.equals("DONE")) {
+                    System.out.println("You must enter an answer by typing \"*\" and the answer!");
+                }
+                if (!answer.equals("DONE")) {
+                    if (answer.indexOf("*") == 0) {
+                        question.addChoice(answer.substring(1), true);
+                    } else {
+                        question.addChoice(answer, false);
+                    }
                 }
                 answer = scanner.nextLine();
             }
