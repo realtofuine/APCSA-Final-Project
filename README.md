@@ -89,3 +89,25 @@ The program enables the user to create and save multiple-choice exams that are a
 ### Methods
 
 - None
+
+# Write-Up
+
+1. What was the goal of your project: What is the general problem addressed by your project? Are you trying something new? Are you designing a game for a particular niche?
+
+   The goal of my project was to create a simple interface for creating exams and taking them. It can be used as a helpful study aid to review difficult questions and track improvement over previous scores. Also, quizzes can be easily shared through files similar to the Demo.java file included in the program. Although online examination systems exist online, most of these systems have paid features or require an internet connection while this program can be run entirely offline for free.
+
+2. Besides grades, what was your motivation: Will your program be useful to you or others? Did you just want to make something fun?
+
+   I was motivated to make this as a possible study aid to prepare for some of my exams. When I come across difficult multiple choice questions that I get wrong on practice exams, I can copy them into the program and separate them by subject. Then, I can retake them while reviewing to ensure that I have understood the concepts thoroughly.
+
+3. What was your design and architecture: Describe how the parts of your system fit together. What classes are you implementing and why?
+
+   I had to create a separate Question and Exam class, with each exam being composed of a list of questions. I also had to separate the answer choices and the question text of each question to create a sort of "modularity" that allowed for rearranging objects and only changing parts of the question rather than the entire thing. I also created a main runner file where the user adds and edits exams as well as takes them. The Demo class is used as an example of the capabilities of the program and a starting point for the user to understand how to use the program effectively.
+
+4. What were some implementation challenges: What were the tricky problems you had to overcome, and how did you solve them?
+
+   Editing the exam was the trickiest part of my program. The ability to rearrange questions' options as well as only change specific parts of the question required me to separate the Question class's answer choices and question text. I also had to force the user to have an answer for each question (or else the questions would be unanswerable), so I had to continuously monitor whether the question already had an answer through a boolean value.
+
+5. Your conclusion or final paragraph: How well did you achieve your goals? Were you on task for the majority of the allotted time? Are you proud of your final product?
+
+   I achieved most of the goals I had initially set for this project. I was able to create an exam system that could store various tests and answers as well as automatically grade exams. I had initially hoped to create a method to save all the exam data in a file so that the data would be stored even after the program ended, but I was unable to implement it due to time constraints and lack of knowledge on save objects in a file. I was on task for almost all of the allotted time, and I am proud of my final project.
