@@ -20,6 +20,7 @@ The program enables the user to create and save multiple-choice exams that are a
 ### Constructors
 
 - `public Exam(String name, String description)`
+- `public Exam(String name)`
 
 ### Methods
 
