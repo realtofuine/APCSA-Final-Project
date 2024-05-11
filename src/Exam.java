@@ -41,6 +41,11 @@ public class Exam {
             System.out.println("\nTest Complete!\n");
 
             System.out.println("Your score was: " + score + "/" + questions.size());
+            System.out.println("Would you like to view the correct answers to the exam? (Y/N)");
+            String response = scan.nextLine();
+            if (response.toUpperCase().equals("Y")) {
+                printAllQuestionsAndAnswers();
+            }
         }
         Main.viewExams();
 
@@ -67,6 +72,17 @@ public class Exam {
         for (Question question : questions) {
             System.out.print(i + ". ");
             question.printQuestion();
+            i++;
+        }
+    }
+
+    public void printAllQuestionsAndAnswers() {
+        int i = 1;
+        for (Question question : questions) {
+            System.out.print(i + ". ");
+            question.printQuestion();
+            System.out.println("Answer: " + question.getAnswer());
+            System.out.println();
             i++;
         }
     }
