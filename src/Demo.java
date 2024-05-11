@@ -1,14 +1,13 @@
-public class Demo {
+public class Demo { // this file adds two demo tests for the user to try out
     public static void main(String[] args) {
-        Exam demo1 = new Exam("Demo Exam 1", "Mathematics");
-        System.out.println(demo1);
-        Question question1 = new Question("3 * 3 = ?");
-        question1.addChoice("4", false);
+        Exam demo1 = new Exam("Demo Exam 1", "Mathematics"); // create new math demo exam
+        Question question1 = new Question("3 * 3 = ?"); // create first question
+        question1.addChoice("4", false); // add answer choices to the question
         question1.addChoice("7", false);
         question1.addChoice("9", true);
         question1.addChoice("2", false);
         demo1.addQuestion(question1);
-        Question question2 = new Question("23 - 17 = ?");
+        Question question2 = new Question("23 - 17 = ?"); // create other questions to add to the exam
         question2.addChoice("6", true);
         question2.addChoice("2", false);
         question2.addChoice("1", false);
@@ -26,16 +25,20 @@ public class Demo {
         question4.addChoice("No, it has been proven false.", false);
         question4.addChoice("Nobody knows.", true);
         demo1.addQuestion(question4);
-        demo1.shuffleExam();
+        demo1.shuffleExam(); // shuffle all the answer choices so that the answers appear in a random order
+                             // for each question
 
-        Exam demo2 = new Exam("Demo Exam 2", "Science");
-        System.out.println(demo2);
-        Question question5 = new Question("What is the primary function of red blood cells in the human body?");
-        question5.addChoice("Transporting oxygen", true);
+        Exam demo2 = new Exam("Demo Exam 2", "Science"); // create new science demo exam
+        Question question5 = new Question("What is the primary function of red blood cells in the human body?"); // create
+                                                                                                                 // question
+                                                                                                                 // for
+                                                                                                                 // the
+                                                                                                                 // exam
+        question5.addChoice("Transporting oxygen", true); // add answer choices to the question
         question5.addChoice("Fighting infections", false);
         question5.addChoice("Producing hormones", false);
         question5.addChoice("Regulating body temperature", false);
-        demo2.addQuestion(question5);
+        demo2.addQuestion(question5); // create other questions
         Question question6 = new Question("What is the chemical symbol for sodium?");
         question6.addChoice("So", false);
         question6.addChoice("Na", true);
@@ -67,9 +70,10 @@ public class Demo {
                 "Schrödinger's cat is a thought experiment demonstrating the deterministic nature of quantum systems.",
                 false);
         demo2.addQuestion(question9);
-        demo2.shuffleExam();
+        demo2.shuffleExam(); // shuffle answer choices for this test too
 
-        Main.examList.add(demo1);
+        Main.examList.add(demo1); // add the exams to the ArrayList in main, which is possible because the list is
+                                  // public
         Main.examList.add(demo2);
     }
 }

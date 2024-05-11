@@ -21,13 +21,7 @@ public class Main {
         System.out.println("1 - View all exams");
         System.out.println("2 - Create new exam");
 
-        try {
-            selection = scanner.nextInt();
-        } catch (Exception e) {
-            printMenu();
-        }
-
-        scanner.nextLine();
+        selection = getInput();
 
         if (selection == 1) {
             viewExams();
@@ -77,13 +71,11 @@ public class Main {
         }
 
         System.out.println("Would you like to (1) Edit an exam, (2) take an exam or (3) return to dashboard?");
-        int choice = scanner.nextInt();
-        scanner.nextLine();
+        int choice = getInput();
 
         if (choice == 1) {
             System.out.println("Enter the number of the exam:");
-            int num = scanner.nextInt();
-            scanner.nextLine();
+            int num = getInput();
             if (num >= 0 && num < examList.size()) {
                 editExam(num);
             } else {
@@ -92,8 +84,7 @@ public class Main {
             }
         } else if (choice == 2) {
             System.out.println("Enter the number of the exam:");
-            int num = scanner.nextInt();
-            scanner.nextLine();
+            int num = getInput();
             if (num >= 0 && num < examList.size()) {
                 examList.get(num).take();
 
@@ -113,8 +104,7 @@ public class Main {
         System.out.println();
         System.out.println("(1) Add question, (2) Edit previous question, (3) Shuffle answer choices, (4) Exit");
 
-        int choice = scanner.nextInt();
-        scanner.nextLine();
+        int choice = getInput();
 
         while (choice == 1 || choice == 2 || choice == 3) {
             if (choice == 1) {
@@ -143,19 +133,16 @@ public class Main {
                 System.out.println("Question with answer \"" + question.getAnswer() + "\" added");
             } else if (choice == 2) {
                 System.out.println("Question number to edit?");
-                int number = scanner.nextInt();
-                scanner.nextLine();
+                int number = getInput();
                 number--;
                 while (!(number >= 0 && number < examList.get(num).getNumQuestions())) {
                     System.out.println("Invalid number! Enter valid number.");
-                    number = scanner.nextInt();
-                    scanner.nextLine();
+                    number = getInput();
                 }
                 Question q = examList.get(num).getQuestion(number);
                 q.printQuestion();
                 System.out.println("(1) Edit question text, (2) Edit answer choices, (3) Cancel");
-                int selection = scanner.nextInt();
-                scanner.nextLine();
+                int selection = getInput();
 
                 if (selection == 1) {
                     System.out.println("Enter new question text:");
@@ -192,11 +179,26 @@ public class Main {
             examList.get(num).printAllQuestions();
 
             System.out.println("(1) Add question, (2) Edit previous question, (3) Shuffle answer choices, (4) Exit");
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            choice = getInput();
 
         }
 
         viewExams();
+    }
+
+    public static int getInput() {
+        int number = -1;
+
+        while (number == -1) {
+            try {
+                number = scanner.nextInt();
+            } catch (Exception e) {
+                System.out.println("Invalid input!");
+                scanner.nextLine();
+            }
+        }
+
+        scanner.nextLine();
+        return number;
     }
 }

@@ -1,23 +1,25 @@
 import java.util.ArrayList;
 
-public class Question {
-    private String question;
-    private ArrayList<String> options = new ArrayList<>();
-    private String answer;
+public class Question { // Question object for exams
+    private String question; // question text
+    private ArrayList<String> options = new ArrayList<>(); // answer choice list
+    private String answer; // correct answer choice text
     private String[] letters = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q",
-            "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+            "R", "S", "T", "U", "V", "W", "X", "Y", "Z" }; // letters list to print with answer choices to make it
+                                                           // easier when typing answers; since only 26 letters are
+                                                           // available, each question is limited to 26 answer choices
 
-    public Question(String question) {
+    public Question(String question) { // create question by adding the question text
         this.question = question;
     }
 
-    public void setQuestion(String text) {
+    public void setQuestion(String text) { // set question text, helpful when editing the exam
         question = text;
     }
 
-    public void addChoice(String choice, boolean answer) {
-        options.add(choice);
-        if (answer) {
+    public void addChoice(String choice, boolean answer) { // add an answer choice to the question
+        options.add(choice); // add answer choice to list
+        if (answer) { // if the answer choice is marked as an answer, set answer to that choice
             this.answer = choice;
         }
     }
