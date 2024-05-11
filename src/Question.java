@@ -24,11 +24,11 @@ public class Question { // Question object for exams
         }
     }
 
-    public void clearChoices() {
+    public void clearChoices() { // remove/delete all answer choices
         options.clear();
     }
 
-    public String getChoice(String letter) {
+    public String getChoice(String letter) { // get the number of the choice corresponding to the letter entered
         if (letter.equals("A")) {
             return options.get(0);
         } else if (letter.equals("B")) {
@@ -82,45 +82,48 @@ public class Question { // Question object for exams
         } else if (letter.equals("Z")) {
             return options.get(25);
         }
-        return "";
+        return ""; // return empty string if input is not one of these letters
     }
 
-    public String toString() {
-        String output = "\n";
+    public String toString() { // print out question and ask for answer
+        String output = "\n"; // create output string
 
         output += question + "\n";
 
         for (int i = 0; i < options.size(); i++) {
-            output += "\t" + letters[i] + " - " + options.get(i) + "\n";
+            output += "\t" + letters[i] + " - " + options.get(i) + "\n"; // add each answer choice with corresponding
+                                                                         // letter
         }
 
-        output += "Enter letter of answer choice:";
+        output += "Enter letter of answer choice:"; // ask for input
 
         return output;
     }
 
-    public String getAnswer() {
+    public String getAnswer() { // return the string of the answer
         return answer;
     }
 
-    public boolean hasAnswer() {
-        if (answer != null) {
+    public boolean hasAnswer() { // check if user has added an answer to the question
+        if (answer != null) { // if answer is null, then user has not yet entered an answer
             return true;
         }
 
         return false;
     }
 
-    public void shuffleQuestion() {
+    public void shuffleQuestion() { // shuffle the question's answer choices
         for (int i = 0; i < options.size(); i++) {
-            options.add((int) (Math.random() * options.size()), options.remove(i));
+            options.add((int) (Math.random() * options.size()), options.remove(i)); // for each answer choice, remove it
+                                                                                    // and add it into a random index in
+                                                                                    // the answer choice list
         }
     }
 
-    public void printQuestion() {
-        System.out.println(question);
+    public void printQuestion() { // print the question
+        System.out.println(question); // print question text
         for (int i = 0; i < options.size(); i++) {
-            System.out.println("\t" + letters[i] + " - " + options.get(i));
+            System.out.println("\t" + letters[i] + " - " + options.get(i)); // print each answer choice
         }
     }
 }
