@@ -109,41 +109,94 @@ public class Main {
     public static void editExam(int num) {
         System.out.println();
         System.out.println("Now editing exam " + examList.get(num));
+        examList.get(num).printAllQuestions();
         System.out.println();
-        System.out.println("(1) Add question, (2) Exit");
+        System.out.println("(1) Add question, (2) Edit previous question, (3) Shuffle answer choices, (4) Exit");
 
         int choice = scanner.nextInt();
         scanner.nextLine();
 
-        while (choice == 1) {
-            System.out.println("Enter question text.");
-            String text = scanner.nextLine();
-            Question question = new Question(text);
+        while (choice == 1 || choice == 2 || choice == 3) {
+            if (choice == 1) {
+                System.out.println("Enter question text.");
+                String text = scanner.nextLine();
+                Question question = new Question(text);
 
-            System.out.println(
-                    "Now enter the answer choices, with each choice on a separate line. If the choice is the correct answer, type \"*\" in front of the choice. When done, type \"DONE\"");
-            String answer = scanner.nextLine();
-            while (!answer.equals("DONE") || !question.hasAnswer()) {
-                if (!question.hasAnswer() && answer.equals("DONE")) {
-                    System.out.println("You must enter an answer by typing \"*\" and the answer!");
-                }
-                if (!answer.equals("DONE")) {
-                    if (answer.indexOf("*") == 0) {
-                        question.addChoice(answer.substring(1), true);
-                    } else {
-                        question.addChoice(answer, false);
+                System.out.println(
+                        "Now enter the answer choices, with each choice on a separate line. If the choice is the correct answer, type \"*\" in front of the choice. When done, type \"DONE\"");
+                String answer = scanner.nextLine();
+                while (!answer.equals("DONE") || !question.hasAnswer()) {
+                    if (!question.hasAnswer() && answer.equals("DONE")) {
+                        System.out.println("You must enter an answer by typing \"*\" and the answer!");
                     }
+                    if (!answer.equals("DONE")) {
+                        if (answer.indexOf("*") == 0) {
+                            question.addChoice(answer.substring(1), true);
+                        } else {
+                            question.addChoice(answer, false);
+                        }
+                    }
+                    answer = scanner.nextLine();
                 }
-                answer = scanner.nextLine();
+
+                examList.get(num).addQuestion(question);
+                System.out.println("Question with answer \"" + question.getAnswer() + "\" added");
+            } else if (choice == 2) {
+                System.out.println("Question number to edit?");
+                int number = scanner.nextInt();
+                scanner.nextLine();
+                number--;
+                while (!(number >= 0 && number < examList.get(num).getNumQuestions())) {
+                    System.out.println("Invalid number! Enter valid number.");
+                    number = scanner.nextInt();
+                    scanner.nextLine();
+                }
+                Question q = examList.get(num).getQuestion(number);
+                q.printQuestion();
+                System.out.println("(1) Edit question text, (2) Edit answer choices, (3) Cancel");
+                int selection = scanner.nextInt();
+                scanner.nextLine();
+
+                if (selection == 1) {
+                    System.out.println("Enter new question text:");
+                    String text = scanner.nextLine();
+                    q.setQuestion(text);
+                } else if (selection == 2) {
+                    q.clearChoices();
+                    System.out.println(
+                            "Enter the answer choices, with each choice on a separate line. If the choice is the correct answer, type \"*\" in front of the choice. When done, type \"DONE\"");
+                    String answer = scanner.nextLine();
+                    while (!answer.equals("DONE") || !q.hasAnswer()) {
+                        if (!q.hasAnswer() && answer.equals("DONE")) {
+                            System.out.println("You must enter an answer by typing \"*\" and the answer!");
+                        }
+                        if (!answer.equals("DONE")) {
+                            if (answer.indexOf("*") == 0) {
+                                q.addChoice(answer.substring(1), true);
+                            } else {
+                                q.addChoice(answer, false);
+                            }
+                        }
+                        answer = scanner.nextLine();
+                    }
+
+                    System.out.println("Question with new answer \"" + q.getAnswer() + "\" edited");
+                }
+
+            } else if (choice == 3) {
+                examList.get(num).shuffleExam();
             }
 
-            examList.get(num).addQuestion(question);
-            System.out.println("Question with answer \"" + question.getAnswer() + "\" added");
+            System.out.println();
+            System.out.println("Exam preview:");
+            examList.get(num).printAllQuestions();
 
-            System.out.println("(1) Add question, (2) Exit");
+            System.out.println("(1) Add question, (2) Edit previous question, (3) Shuffle answer choices, (4) Exit");
             choice = scanner.nextInt();
             scanner.nextLine();
+
         }
+
         viewExams();
     }
 }

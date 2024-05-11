@@ -56,4 +56,23 @@ public class Exam {
         return questions.size();
     }
 
+    public void shuffleExam() {
+        for (Question question : questions) {
+            question.shuffleQuestion();
+        }
+    }
+
+    public void printAllQuestions() {
+        int i = 1;
+        for (Question question : questions) {
+            System.out.print(i + ". ");
+            question.printQuestion();
+            i++;
+        }
+    }
+
+    public Question getQuestion(int num) {
+        return questions.get(num);
+    }
+
 }

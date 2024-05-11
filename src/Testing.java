@@ -8,6 +8,7 @@ public class Testing {
         question1.addChoice("option 3", false);
         question1.addChoice("option 4", false);
         test.addQuestion(question1);
+        test.shuffleExam();
         test.take();
 
     }

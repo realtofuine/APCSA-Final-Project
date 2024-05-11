@@ -11,11 +11,19 @@ public class Question {
         this.question = question;
     }
 
+    public void setQuestion(String text) {
+        question = text;
+    }
+
     public void addChoice(String choice, boolean answer) {
         options.add(choice);
         if (answer) {
             this.answer = choice;
         }
+    }
+
+    public void clearChoices() {
+        options.clear();
     }
 
     public String getChoice(String letter) {
@@ -81,7 +89,7 @@ public class Question {
         output += question + "\n";
 
         for (int i = 0; i < options.size(); i++) {
-            output += letters[i] + " - " + options.get(i) + "\n";
+            output += "\t" + letters[i] + " - " + options.get(i) + "\n";
         }
 
         output += "Enter letter of answer choice:";
@@ -99,5 +107,18 @@ public class Question {
         }
 
         return false;
+    }
+
+    public void shuffleQuestion() {
+        for (int i = 0; i < options.size(); i++) {
+            options.add((int) (Math.random() * options.size()), options.remove(i));
+        }
+    }
+
+    public void printQuestion() {
+        System.out.println(question);
+        for (int i = 0; i < options.size(); i++) {
+            System.out.println("\t" + letters[i] + " - " + options.get(i));
+        }
     }
 }
