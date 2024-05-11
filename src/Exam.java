@@ -2,12 +2,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Exam {
-    private ArrayList<Question> questions = new ArrayList<>();
-    private String name;
-    private String description;
-    private int score = -1;
+    private ArrayList<Question> questions = new ArrayList<>(); // create list of questions on the exam
+    private String name; // name of the exam
+    private String description; // exam description
+    private int score = -1; // initialize exam score, which is -1 until the exam is taken
 
-    public Exam(String name, String description) {
+    public Exam(String name, String description) { // create Exam with title and description
         this.name = name;
         this.description = description;
     }
