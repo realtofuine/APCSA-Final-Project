@@ -12,6 +12,11 @@ public class Exam {
         this.description = description;
     }
 
+    public Exam(String name) {
+        this.name = name;
+        this.description = "";
+    }
+
     public String toString() { // return string of the exam's name and description
         return name + ": " + description;
     }
